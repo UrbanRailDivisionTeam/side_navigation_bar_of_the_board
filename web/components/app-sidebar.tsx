@@ -27,6 +27,8 @@ import { navigation, type NavItem, type NavSection } from "@/lib/navigation"
 
 function NavSubItem({ item }: { item: NavItem }) {
     const pathname = usePathname()
+    const hasActiveChild = item.children?.some((child) => pathname.startsWith(child.url)) ?? false
+    const [open, setOpen] = useState(hasActiveChild)
 
     // Flat item (no children) → simple link
     if (!item.children) {
@@ -43,17 +45,12 @@ function NavSubItem({ item }: { item: NavItem }) {
     }
 
     // Item with children → collapsible sub-section
-    const hasActiveChild = item.children.some((child) => pathname.startsWith(child.url))
-    const [open, setOpen] = useState(hasActiveChild)
-
     return (
         <SidebarMenuSubItem>
             <SidebarMenuSubButton asChild>
                 <button onClick={() => setOpen(!open)}>
                     <span className="flex-1 text-left">{item.title}</span>
-                    <ChevronDown
-                        className={`size-3 shrink-0 transition-transform duration-200 ${open ? "rotate-0" : "-rotate-90"}`}
-                    />
+                    <ChevronDown className={`size-3 shrink-0 transition-transform duration-200 ${open ? "rotate-0" : "-rotate-90"}`} />
                 </button>
             </SidebarMenuSubButton>
             <AnimatePresence initial={false}>
@@ -89,9 +86,7 @@ function NavSubItem({ item }: { item: NavItem }) {
 function NavSectionGroup({ section }: { section: NavSection }) {
     const pathname = usePathname()
     const [open, setOpen] = useState(
-        section.items.some((item) =>
-            item.url ? pathname.startsWith(item.url) : item.children?.some((c) => pathname.startsWith(c.url)),
-        ),
+        section.items.some((item) => (item.url ? pathname.startsWith(item.url) : item.children?.some((c) => pathname.startsWith(c.url))))
     )
 
     const Icon = section.icon
@@ -136,9 +131,7 @@ export function AppSidebar() {
         <Sidebar collapsible="icon" variant="sidebar">
             <SidebarHeader className="flex-row items-center gap-2.5 px-3 py-3">
                 <Image src="/中车.png" alt="中车" width={28} height={28} className="shrink-0" />
-                <span className="truncate text-sm font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-                    城轨现场指挥中心
-                </span>
+                <span className="truncate text-sm font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">城轨现场指挥中心</span>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
