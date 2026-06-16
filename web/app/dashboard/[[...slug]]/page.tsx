@@ -1,10 +1,21 @@
-import { navigation } from "@/lib/navigation"
+import { navigation, type NavItem } from "@/lib/navigation"
 import { PageContent } from "./page-content"
+
+function flattenItems(items: NavItem[]): NavItem[] {
+    const result: NavItem[] = []
+    for (const item of items) {
+        result.push(item)
+        if (item.children) {
+            result.push(...flattenItems(item.children))
+        }
+    }
+    return result
+}
 
 export function generateStaticParams() {
     const paths: { slug: string[] }[] = [{ slug: [] }]
     for (const section of navigation) {
-        for (const item of section.items) {
+        for (const item of flattenItems(section.items)) {
             const slug = item.url.replace("/dashboard/", "").split("/")
             paths.push({ slug })
         }
@@ -17,7 +28,7 @@ type Params = Promise<{ slug?: string[] }>
 function resolveTitle(slug: string[]): string {
     const path = "/dashboard/" + slug.join("/")
     for (const section of navigation) {
-        for (const item of section.items) {
+        for (const item of flattenItems(section.items)) {
             if (item.url === path) {
                 return item.title
             }

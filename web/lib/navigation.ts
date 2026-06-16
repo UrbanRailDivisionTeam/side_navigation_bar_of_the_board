@@ -3,6 +3,7 @@ import { Brain, Play, Monitor, type LucideIcon } from "lucide-react"
 export interface NavItem {
     title: string
     url: string
+    children?: NavItem[]
 }
 
 export interface NavSection {
@@ -27,8 +28,26 @@ export const navigation: NavSection[] = [
         icon: Play,
         items: [
             { title: "风险预警板块", url: "/dashboard/execution/risk" },
-            { title: "六要素监控板块", url: "/dashboard/execution/six-elements" },
-            { title: "生产过程监控板块", url: "/dashboard/execution/production" },
+            {
+                title: "六要素监控板块",
+                url: "/dashboard/execution/six-elements",
+                children: [
+                    { title: "人", url: "/dashboard/execution/six-elements/people" },
+                    { title: "机", url: "/dashboard/execution/six-elements/machine" },
+                    { title: "料", url: "/dashboard/execution/six-elements/material" },
+                    { title: "法", url: "/dashboard/execution/six-elements/method" },
+                    { title: "环", url: "/dashboard/execution/six-elements/environment" },
+                    { title: "测", url: "/dashboard/execution/six-elements/measurement" },
+                ],
+            },
+            {
+                title: "生产过程监控板块",
+                url: "/dashboard/execution/production",
+                children: [
+                    { title: "计划监控", url: "/dashboard/execution/production/plan" },
+                    { title: "异常监控", url: "/dashboard/execution/production/alert" },
+                ],
+            },
             { title: "进程协同管理板块", url: "/dashboard/execution/collaboration" },
         ],
     },
