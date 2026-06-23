@@ -12,6 +12,8 @@ export interface NavSection {
     items: NavItem[]
 }
 
+export const MATERIAL_IFRAME_URL = "http://10.24.5.54:12380/static"
+
 export const navigation: NavSection[] = [
     {
         title: "决策层",
@@ -52,7 +54,7 @@ export const navigation: NavSection[] = [
         ],
     },
     {
-        title: "态势感知可视化看板",
+        title: "数智小城",
         icon: Monitor,
         items: [
             { title: "立体货柜电子屏", url: "/dashboard/awareness/cabinet" },
