@@ -8,7 +8,7 @@ import { normalizePath } from "@/lib/utils"
 export function PageContent({ slug, title }: { slug: string[]; title: string }) {
     const pathname = usePathname()
 
-    const isMaterialBoard = normalizePath(pathname) === "/dashboard/execution/six-elements/material"
+    const isMaterialBoard = normalizePath(pathname) === "/dashboard/awareness/cabinet"
 
     if (!slug || slug.length === 0) {
         return (
