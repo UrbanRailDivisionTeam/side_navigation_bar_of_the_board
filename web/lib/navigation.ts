@@ -13,6 +13,7 @@ export interface NavSection {
 }
 
 export const MATERIAL_IFRAME_URL = "http://10.24.5.54:12380/static"
+export const VEHICLETRACK_IFRAME_URL = "http://10.24.5.34:8000/dashboard.html"
 
 export const navigation: NavSection[] = [
     {
