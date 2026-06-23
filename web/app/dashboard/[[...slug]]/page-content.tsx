@@ -40,9 +40,6 @@ export function PageContent({ slug, title }: { slug: string[]; title: string }) 
                     transition={{ duration: 0.15, ease: "easeOut" as const }}
                     className="flex flex-1 flex-col gap-4"
                 >
-                    <div>
-                        <h2 className="text-lg font-semibold">{title}</h2>
-                    </div>
                     <div className="flex flex-1">
                         <iframe
                             src={MATERIAL_IFRAME_URL}
