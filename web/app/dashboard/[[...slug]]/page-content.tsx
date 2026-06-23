@@ -3,11 +3,12 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { usePathname } from "next/navigation"
 import { MATERIAL_IFRAME_URL } from "@/lib/navigation"
+import { normalizePath } from "@/lib/utils"
 
 export function PageContent({ slug, title }: { slug: string[]; title: string }) {
     const pathname = usePathname()
 
-    const isMaterialBoard = pathname === "/dashboard/execution/six-elements/material"
+    const isMaterialBoard = normalizePath(pathname) === "/dashboard/execution/six-elements/material"
 
     if (!slug || slug.length === 0) {
         return (

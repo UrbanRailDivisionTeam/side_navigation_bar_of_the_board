@@ -24,6 +24,7 @@ import {
     SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { navigation, type NavItem, type NavSection } from "@/lib/navigation"
+import { normalizePath } from "@/lib/utils"
 
 function NavSubItem({ item }: { item: NavItem }) {
     const pathname = usePathname()
@@ -32,7 +33,7 @@ function NavSubItem({ item }: { item: NavItem }) {
 
     // Flat item (no children) → simple link
     if (!item.children) {
-        const isActive = pathname === item.url
+        const isActive = normalizePath(pathname) === item.url
         return (
             <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild isActive={isActive}>
@@ -64,7 +65,7 @@ function NavSubItem({ item }: { item: NavItem }) {
                     >
                         <SidebarMenuSub>
                             {item.children.map((child) => {
-                                const isActive = pathname === child.url
+                                const isActive = normalizePath(pathname) === child.url
                                 return (
                                     <SidebarMenuSubItem key={child.url}>
                                         <SidebarMenuSubButton asChild isActive={isActive}>
@@ -138,7 +139,7 @@ export function AppSidebar() {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton asChild isActive={pathname === "/dashboard"} tooltip="首页概览">
+                                <SidebarMenuButton asChild isActive={normalizePath(pathname) === "/dashboard"} tooltip="首页概览">
                                     <Link href="/dashboard">
                                         <Home className="size-4" />
                                         <span>首页概览</span>
